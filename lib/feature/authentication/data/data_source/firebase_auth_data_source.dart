@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:saving_trackings_flutter/feature/authentication/data/models/user_model.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/entities/user_entity.dart';
 
 abstract class FirebaseAuthDataSource{
-  Future<User> signInWithEmailPassword(String email, String password);
-  Future<User> signUpWithEmailPassword(String email, String password);
+  Future<UserEntity> signInWithEmailPassword(String email, String password);
+  Future<UserEntity> signUpWithEmailPassword(String email, String password);
 }
 
 class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource{
@@ -11,13 +13,13 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource{
   FirebaseAuthDataSourceImpl(this._firebaseAuth);
 
   @override
-  Future<User> signInWithEmailPassword(String email, String password) async {
+  Future<UserEntity> signInWithEmailPassword(String email, String password) async {
     try{
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email,
           password: password
       );
-      return userCredential.user!;
+      return UserModel.fromFirebaseUser(userCredential.user!);
     }
     catch(e){
       throw Exception('Login failure');
@@ -25,13 +27,13 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource{
   }
 
   @override
-  Future<User> signUpWithEmailPassword(String email, String password) async {
+  Future<UserEntity> signUpWithEmailPassword(String email, String password) async {
     try{
       final userCredential = await _firebaseAuth.createUserWithEmailAndPassword(
           email: email,
           password: password
       );
-      return userCredential.user!;
+      return UserModel.fromFirebaseUser(userCredential.user!);
     }
     catch(e){
       throw Exception('Sign up failure');
