@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:920883269210:android:d0e56f81db4fa3d7301263",
+        "mobilesdk_app_id": "1:920883269210:android:699b3b008c502a1a301263",
         "android_client_info": {
-          "package_name": "com.android.application"
+          "package_name": "com.example.saving_trackings_flutter"
         }
       },
       "oauth_client": [],

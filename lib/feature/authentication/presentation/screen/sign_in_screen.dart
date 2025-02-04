@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/cubit/authentication_cubit.dart';
@@ -48,12 +49,14 @@ class SignInScreen extends StatelessWidget {
                   obscureText: true,
                 ),
                 ElevatedButton(
-                    onPressed: (){
-                      final email = emailController.text;
-                      final password = passwordController.text;
-                      context.read<AuthenticationCubit>().signInUser(email, password);
-                    },
-                    child: Text('Login')
+                  onPressed: () async {
+                    final email = emailController.text;
+                    final password = passwordController.text;
+                    print("Đang thực hiện đăng nhập với email: $email"); // Thêm print để kiểm tra
+                    await context.read<AuthenticationCubit>().signInUser(email, password);
+                    context.go('/home');
+                  },
+                  child: Text('Login'),
                 ),
                 TextButton(
                   onPressed: () {
