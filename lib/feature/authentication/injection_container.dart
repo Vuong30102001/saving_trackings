@@ -7,26 +7,26 @@ import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/cubit/authentication_cubit.dart';
 
-final s1 = GetIt.instance;
+final sl = GetIt.instance;
 
 Future<void> init() async {
   //Firebase
-  s1.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
+  sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
   //Data source
-  s1.registerLazySingleton<FirebaseAuthDataSource>(
-      () => FirebaseAuthDataSourceImpl(s1())
+  sl.registerLazySingleton<FirebaseAuthDataSource>(
+      () => FirebaseAuthDataSourceImpl(sl())
   );
 
   //Repository
-  s1.registerLazySingleton<AuthenticationRepository>(
-      () => AuthenticationRepositoryImpl(s1())
+  sl.registerLazySingleton<AuthenticationRepository>(
+      () => AuthenticationRepositoryImpl(sl())
   );
 
   //use case
-  s1.registerLazySingleton(() => SignInUseCase(s1()));
-  s1.registerLazySingleton(() => SignUpUseCase(s1()));
+  sl.registerLazySingleton(() => SignInUseCase(sl()));
+  sl.registerLazySingleton(() => SignUpUseCase(sl()));
 
   //cubit
-  s1.registerFactory(() => AuthenticationCubit(signIn: s1(), signUp: s1()));
+  sl.registerFactory(() => AuthenticationCubit(signIn: sl(), signUp: sl()));
 }

@@ -23,10 +23,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<SignInUseCase>(
-          create: (_) => di.s1<SignInUseCase>(), // Lấy từ Service Locator
+          create: (_) => di.sl<SignInUseCase>(), // Lấy từ Service Locator
         ),
         Provider<SignUpUseCase>(
-          create: (_) => di.s1<SignUpUseCase>(), // Lấy từ Service Locator
+          create: (_) => di.sl<SignUpUseCase>(), // Lấy từ Service Locator
         ),
         Provider<AuthenticationCubit>(
           create: (context) => AuthenticationCubit(signIn: context.read<SignInUseCase>(), signUp: context.read<SignUpUseCase>()),

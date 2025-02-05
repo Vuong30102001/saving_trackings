@@ -7,8 +7,8 @@ enum TransactionType{
 
 class TransactionEntity{
   final String id;
-  final TransactionType userId;
-  final String type;
+  final String userId;
+  final TransactionType type;
   final double amount;
   final DateTime dateTime;
 
