@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/screen/sign_in_screen.dart';
 
-import '../feature/authentication/presentation/screen/home_screen.dart';
+import '../home_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/signIn',
