@@ -1,6 +1,13 @@
+enum TransactionType{
+  income,
+  expense,
+  lend,
+  borrow,
+}
+
 class TransactionEntity{
   final String id;
-  final String userId;
+  final TransactionType userId;
   final String type;
   final double amount;
   final DateTime dateTime;
