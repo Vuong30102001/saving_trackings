@@ -21,11 +21,13 @@ class AddTransactionUseCase{
     //handle wallet
     if(transaction.type == TransactionType.income){
       final balance = await balanceRepository.getBalance(transaction.userId);
-      await balanceRepository.updateBalance(transaction.userId, balance.amount + transaction.amount);
+      double newBalance = balance.amount + transaction.amount;
+      await balanceRepository.updateBalance(transaction.userId, newBalance);
     }
     else if(transaction.type == TransactionType.expense){
       final balance = await balanceRepository.getBalance(transaction.userId);
-      await balanceRepository.updateBalance(transaction.userId, balance.amount - transaction.amount);
+      double newBalance = balance.amount - transaction.amount;
+      await balanceRepository.updateBalance(transaction.userId, newBalance);
     }
 
     if(transaction.type == TransactionType.lend || transaction.type == TransactionType.borrow){
