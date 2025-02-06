@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/wallet_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(color: Colors.green,),
-          IconButton(
-              onPressed: (){
-                context.go('/signIn');
-              },
-              icon: Icon(Icons.backspace),
-          )
-        ],
-      )
+      body: const WalletScreen()
     );
   }
 }
