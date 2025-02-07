@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:saving_trackings_flutter/core/app_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
@@ -26,41 +27,52 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child){
+        return MultiProvider(
+            providers: [
 
-        Provider<SignInUseCase>(
-          create: (_) => di.sl<SignInUseCase>(), // Lấy từ Service Locator
-        ),
-        Provider<SignUpUseCase>(
-          create: (_) => di.sl<SignUpUseCase>(), // Lấy từ Service Locator
-        ),
-        Provider<AuthenticationCubit>(
-          create: (context) => AuthenticationCubit(signIn: context.read<SignInUseCase>(), signUp: context.read<SignUpUseCase>()),
-        ),
+              Provider<SignInUseCase>(
+                create: (_) => di.sl<SignInUseCase>(), // Lấy từ Service Locator
+              ),
+              Provider<SignUpUseCase>(
+                create: (_) => di.sl<SignUpUseCase>(), // Lấy từ Service Locator
+              ),
+              Provider<AuthenticationCubit>(
+                create: (context) => AuthenticationCubit(signIn: context.read<SignInUseCase>(), signUp: context.read<SignUpUseCase>()),
+              ),
 
 
-        Provider<AddTransactionUseCase>(
-            create: (_) => di.sl<AddTransactionUseCase>(),
-        ),
-        Provider<GetTransactionUseCase>(
-          create: (_) => di.sl<GetTransactionUseCase>(),
-        ),
-        Provider<GetBalanceUseCase>(
-          create: (_) => di.sl<GetBalanceUseCase>(),
-        ),
-        BlocProvider<WalletCubit>(
-            create: (context) => WalletCubit(
-                addTransactionUseCase: context.read<AddTransactionUseCase>(),
-                getTransactionUseCase: context.read<GetTransactionUseCase>(),
-                getBalanceUseCase: context.read<GetBalanceUseCase>()
-            ),
-          child: WalletScreen(),
-        )
-      ],
-      child: MaterialApp.router(
-        routerConfig: appRouter,
-      )
+              Provider<AddTransactionUseCase>(
+                create: (_) => di.sl<AddTransactionUseCase>(),
+              ),
+              Provider<GetTransactionUseCase>(
+                create: (_) => di.sl<GetTransactionUseCase>(),
+              ),
+              Provider<GetBalanceUseCase>(
+                create: (_) => di.sl<GetBalanceUseCase>(),
+              ),
+              BlocProvider<WalletCubit>(
+                create: (context) => WalletCubit(
+                    addTransactionUseCase: context.read<AddTransactionUseCase>(),
+                    getTransactionUseCase: context.read<GetTransactionUseCase>(),
+                    getBalanceUseCase: context.read<GetBalanceUseCase>()
+                ),
+                child: WalletScreen(),
+              )
+            ],
+            child: MaterialApp.router(
+              routerConfig: appRouter,
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primaryColor: Colors.blue,
+              ),
+            )
+        );
+      },
     );
   }
 }

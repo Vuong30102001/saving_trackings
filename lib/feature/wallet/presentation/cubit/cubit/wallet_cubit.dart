@@ -50,6 +50,7 @@ class WalletCubit extends Cubit<WalletState>{
     try{
       await addTransactionUseCase.addTransaction(transaction);
       await loadWallet(transaction.userId);
+      emit(WalletTransactionSuccess('Success'));
     }
     catch(e){
       emit(WalletError('Error: ${e.toString()}'));

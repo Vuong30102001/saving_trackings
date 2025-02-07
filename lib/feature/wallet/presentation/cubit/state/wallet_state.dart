@@ -30,3 +30,12 @@ class WalletError extends WalletState {
   @override
   List<Object?> get props => [message];
 }
+
+class WalletTransactionSuccess extends WalletState {
+  final String successMessage;
+
+  const WalletTransactionSuccess(this.successMessage);
+
+  @override
+  List<Object?> get props => [successMessage];
+}
