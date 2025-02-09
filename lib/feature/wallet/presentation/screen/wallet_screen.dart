@@ -52,7 +52,8 @@ class _WalletScreenState extends State<WalletScreen> {
     User? user = FirebaseAuth.instance.currentUser;
     String userName = user?.email?.split("@")[0] ?? 'Guest';
     return Scaffold(
-      appBar: AppBar(
+      appBar: _currentIndex == 0
+        ? AppBar(
         backgroundColor: Colors.blue.shade400,
         title: Text(
           'Hello $userName',
@@ -70,7 +71,8 @@ class _WalletScreenState extends State<WalletScreen> {
               icon: Icon(Icons.logout)
           )
         ],
-      ),
+      )
+      : null,
       body: IndexedStack( // Hold the Bottom Navigation bar
         index: _currentIndex,
         children: [
@@ -148,7 +150,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         ),
                       ),
                       Container(
-                          height: 450.w,
+                          height: 250.w,
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -174,27 +176,13 @@ class _WalletScreenState extends State<WalletScreen> {
                                   color: Colors.black,
                                 ),
                               ),
-                              Center(
-                                child: SizedBox(
-                                  height: 350,
-                                  width: 300,
-                                  child: PieChart(
-                                      PieChartData(
-                                          sections: [
-                                            PieChartSectionData(
-                                              value: totalIncome,
-                                              color: Colors.green,
-                                              showTitle: false, //Hidden value
-                                              radius: 80,
-                                            ),
-                                            PieChartSectionData(
-                                              value: totalExpense,
-                                              color: Colors.red,
-                                              showTitle: false,
-                                              radius: 80,
-                                            ),
-                                          ]
-                                      )
+                              Expanded(
+                                child: PieChart(
+                                  PieChartData(
+                                    sections: [
+                                      PieChartSectionData(value: totalIncome, color: Colors.green, showTitle: false, radius: 80),
+                                      PieChartSectionData(value: totalExpense, color: Colors.red, showTitle: false, radius: 80),
+                                    ],
                                   ),
                                 ),
                               ),
