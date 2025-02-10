@@ -10,8 +10,10 @@ import 'package:saving_trackings_flutter/feature/wallet/data/data%20source/balan
 import 'package:saving_trackings_flutter/feature/wallet/data/data%20source/debt_data_source.dart';
 import 'package:saving_trackings_flutter/feature/wallet/data/repository/transaction_repository_impl.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/repository/transaction_repository.dart';
+import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_cateogry_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_transaction_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_balance_use_case.dart';
+import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_categories_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_transaction_use_case.dart';
 
 import '../feature/wallet/data/data source/transaction_data_source.dart';
@@ -80,5 +82,11 @@ Future<void> init() async {
   ));
   sl.registerLazySingleton(() => GetBalanceUseCase(
       balanceRepository: sl(),
+  ));
+  sl.registerLazySingleton(() => AddCategoryUseCase(
+    transactionRepository: sl()
+  ));
+  sl.registerLazySingleton(() => GetCategoriesUseCase(
+      transactionRepository: sl(),
   ));
 }

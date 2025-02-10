@@ -24,13 +24,6 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            IconButton(
-              icon: Icon(Icons.arrow_back_ios),
-              onPressed: () {
-                context.go('/walletScreen');
-              },
-              color: Colors.white,
-            ),
             Spacer(),
             Text(
               'Lịch sử giao dịch',
@@ -192,7 +185,7 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
                                               size: 30.sp,
                                             ),
                                             title: Text(
-                                              transaction.type.toString(),
+                                              transaction.category,
                                               style: TextStyle(fontWeight: FontWeight.bold),
                                             ),
                                             subtitle: Text(

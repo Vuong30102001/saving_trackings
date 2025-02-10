@@ -5,8 +5,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:saving_trackings_flutter/core/app_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
+import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_cateogry_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_transaction_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_balance_use_case.dart';
+import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_categories_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_transaction_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/presentation/cubit/cubit/wallet_cubit.dart';
 import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/wallet_screen.dart';
@@ -55,11 +57,19 @@ class MyApp extends StatelessWidget {
               Provider<GetBalanceUseCase>(
                 create: (_) => di.sl<GetBalanceUseCase>(),
               ),
+              Provider<AddCategoryUseCase>(
+                create: (_) => di.sl<AddCategoryUseCase>(),
+              ),
+              Provider<GetCategoriesUseCase>(
+                create: (_) => di.sl<GetCategoriesUseCase>(),
+              ),
               BlocProvider<WalletCubit>(
                 create: (context) => WalletCubit(
                     addTransactionUseCase: context.read<AddTransactionUseCase>(),
                     getTransactionUseCase: context.read<GetTransactionUseCase>(),
-                    getBalanceUseCase: context.read<GetBalanceUseCase>()
+                    getBalanceUseCase: context.read<GetBalanceUseCase>(),
+                    addCategoryUseCase: context.read<AddCategoryUseCase>(),
+                    getCategoriesUseCase: context.read<GetCategoriesUseCase>()
                 ),
                 child: WalletScreen(),
               )

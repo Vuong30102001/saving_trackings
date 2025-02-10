@@ -9,6 +9,7 @@ class TransactionModel{
   late String userId;
   @enumerated
   late TransactionType type;
+  late String category;
   late double amount;
   late DateTime dateTime;
 
@@ -19,6 +20,7 @@ class TransactionModel{
         id: id.toString(),
         userId: userId,
         type: type,
+        category: category,
         amount: amount,
         dateTime: dateTime
     );
@@ -29,6 +31,7 @@ class TransactionModel{
         ..id = int.parse(transaction.id)
         ..userId = transaction.userId
         ..type = transaction.type
+        ..category = transaction.category
         ..amount = transaction.amount
         ..dateTime = transaction.dateTime;
   }

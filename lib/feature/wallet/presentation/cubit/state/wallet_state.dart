@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/entities/balance_entity.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/entities/transaction_entity.dart';
 
+import '../../../domain/entities/transaction_category_entity.dart';
+
 abstract class WalletState extends Equatable{
   const WalletState();
 
@@ -39,3 +41,13 @@ class WalletTransactionSuccess extends WalletState {
   @override
   List<Object?> get props => [successMessage];
 }
+
+class WalletCategoriesLoaded extends WalletState {
+  final List<TransactionCategoryEntity> categories;
+
+  const WalletCategoriesLoaded(this.categories);
+
+  @override
+  List<Object> get props => [categories];
+}
+
