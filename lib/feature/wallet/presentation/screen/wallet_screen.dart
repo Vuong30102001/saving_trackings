@@ -9,7 +9,7 @@ import 'package:saving_trackings_flutter/feature/wallet/presentation/cubit/cubit
 import 'package:saving_trackings_flutter/feature/wallet/presentation/cubit/state/wallet_state.dart';
 import 'package:saving_trackings_flutter/core/format_currency.dart';
 import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/add_transaction_screen.dart';
-import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/transaction_history_screen.dart';
+import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/setting_screen.dart';
 
 class WalletScreen extends StatefulWidget {
   const WalletScreen({super.key});
@@ -240,7 +240,7 @@ class _WalletScreenState extends State<WalletScreen> {
               }
           ),
           const AddTransactionScreen(),
-          const TransactionHistoryScreen(),
+          const SettingScreen(),
         ]
       ),
       bottomNavigationBar: BottomNavigationBar(

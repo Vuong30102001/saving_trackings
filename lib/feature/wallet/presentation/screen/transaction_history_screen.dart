@@ -24,6 +24,12 @@ class _TransactionHistoryScreenState extends State<TransactionHistoryScreen> {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            IconButton(
+                onPressed: (){
+                  context.go('/walletScreen');
+                },
+                icon: Icon(Icons.arrow_back)
+            ),
             Spacer(),
             Text(
               'Lịch sử giao dịch',

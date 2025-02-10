@@ -1,3 +1,7 @@
+import 'package:json_annotation/json_annotation.dart';
+
+part 'transaction_entity.g.dart';
+
 enum TransactionType{
   income,
   expense,
@@ -5,9 +9,11 @@ enum TransactionType{
   borrow,
 }
 
+@JsonSerializable()
 class TransactionEntity{
   final String id;
   final String userId;
+  @JsonKey(unknownEnumValue: TransactionType.income)
   final TransactionType type;
   final String category;
   final double amount;
@@ -21,4 +27,8 @@ class TransactionEntity{
     required this.amount,
     required this.dateTime
   });
+
+  factory TransactionEntity.fromJson(Map<String, dynamic> json) => _$TransactionEntityFromJson(json);
+
+  Map<String, dynamic> toJson() => _$TransactionEntityToJson(this);
 }

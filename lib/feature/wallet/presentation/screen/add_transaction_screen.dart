@@ -204,6 +204,43 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                       ),
                     ],
                   ),
+                  SizedBox(height: 20.w,),
+                  SizedBox(
+                    height: 150.w,
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 20,
+                          childAspectRatio: 5,
+                        ),
+                        itemCount: _categories.length,
+                        itemBuilder: (context, index){
+                          return GestureDetector(
+                            onTap: (){
+                              setState(() {
+                                _categoryController.text = _categories[index];
+                                _selectedCategory = _categories[index];
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                _categories[index],
+                                style: TextStyle(
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
+                    ),
+                  ),
+                  SizedBox(height: 8.w,),
                   Center(
                     child: ElevatedButton(
                         onPressed: _saveTransaction,

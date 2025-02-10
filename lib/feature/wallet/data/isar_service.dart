@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:saving_trackings_flutter/feature/wallet/data/models/balance_model.dart';
@@ -13,6 +14,7 @@ class IsarService{
   }
 
   Future<Isar> _initDB() async {
+    await Isar.initializeIsarCore();
     final dir = await getApplicationDocumentsDirectory();
     return await Isar.open(
     [TransactionModelSchema, BalanceModelSchema, DebtModelSchema, TransactionCategoryModelSchema],

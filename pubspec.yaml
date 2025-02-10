@@ -48,6 +48,8 @@ dependencies:
   intl: ^0.20.2
   fl_chart: ^0.70.2
   flutter_secure_storage: ^9.2.4
+  json_annotation: ^4.9.0
+  json_serializable: ^6.8.0
 
 
 dev_dependencies:
