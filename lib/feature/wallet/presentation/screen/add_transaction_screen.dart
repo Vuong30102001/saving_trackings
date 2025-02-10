@@ -28,31 +28,42 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     'Khác',
   ];
 
-  void _saveTransaction() async {
+  void _saveTransaction() {
     final userId = FirebaseAuth.instance.currentUser?.uid;
-    if(userId == null) return;
+    if (userId == null) return;
 
     final walletCubit = context.read<WalletCubit>();
 
     final transaction = TransactionEntity(
-        id: DateTime.now().millisecond.toString(),
-        userId: userId,
-        type: _selectedType,
-        amount: double.tryParse(_amountController.text) ?? 0,
-        category: _selectedCategory!,
-        dateTime: DateTime.now(),
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      userId: userId,
+      type: _selectedType,
+      amount: double.tryParse(_amountController.text) ?? 0,
+      category: _selectedCategory!,
+      dateTime: DateTime.now(),
+    );
+
+    final category = TransactionCategoryEntity(
+      userId: userId,
+      name: _categoryController.text,
+      type: _selectedType.toString(),
     );
 
     _amountController.clear();
-    await walletCubit.addTransaction(transaction);
-    if(mounted){
-      walletCubit.addCategory(TransactionCategoryEntity(
-          userId: userId,
-          name: _categoryController.text,
-          type: _selectedType.toString()
-      ));
-    }
+
+    // Chạy trong một microtask để tránh lag
+    Future.microtask(() => _saveData(walletCubit, transaction, category));
   }
+
+  Future<void> _saveData(
+      WalletCubit walletCubit,
+      TransactionEntity transaction,
+      TransactionCategoryEntity category) async {
+    await walletCubit.addTransaction(transaction);
+    await walletCubit.addCategory(category);
+    print("Transaction & Category saved.");
+  }
+
 
   void _addNewCategory() {
     if(_categoryController.text.isNotEmpty){
