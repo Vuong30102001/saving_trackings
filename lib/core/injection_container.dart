@@ -4,6 +4,8 @@ import 'package:saving_trackings_flutter/feature/authentication/data/data_source
 import 'package:saving_trackings_flutter/feature/authentication/data/repository/authentication_repository_impl.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/repository/authentication_repository.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_use_case.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_facebook_use_case.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_google_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/cubit/authentication_cubit.dart';
 import 'package:saving_trackings_flutter/feature/wallet/data/data%20source/balance_data_source.dart';
@@ -42,9 +44,16 @@ Future<void> init() async {
   //use case
   sl.registerLazySingleton(() => SignInUseCase(sl()));
   sl.registerLazySingleton(() => SignUpUseCase(sl()));
+  sl.registerLazySingleton(() => SignInWithGoogleUseCase(sl()));
+  sl.registerLazySingleton(() => SignInWithFacebookUseCase(sl()));
 
   //cubit
-  sl.registerFactory(() => AuthenticationCubit(signIn: sl(), signUp: sl()));
+  sl.registerFactory(() => AuthenticationCubit(
+      signIn: sl(),
+      signUp: sl(),
+      signInWithGoogleUseCase: sl(),
+      signInWithFacebookUseCase: sl(),
+  ));
 
 
   //Isar Service

@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_use_case.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_facebook_use_case.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_google_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/cubit/authentication_cubit.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/state/authentication_state.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/wallet_screen.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -71,6 +74,8 @@ class _SignInScreenState extends State<SignInScreen> {
               create: (_) => AuthenticationCubit(
                 signIn: context.read<SignInUseCase>(),
                 signUp: context.read<SignUpUseCase>(),
+                signInWithGoogleUseCase: context.read<SignInWithGoogleUseCase>(),
+                signInWithFacebookUseCase: context.read<SignInWithFacebookUseCase>()
               ),
               child: BlocBuilder<AuthenticationCubit, AuthenticationState>(
                 builder: (context, state) {
@@ -175,6 +180,68 @@ class _SignInScreenState extends State<SignInScreen> {
                                 fontSize: 12.sp,
                               ),
                             ),
+                      ),
+                      SizedBox(height: 10.w,),
+                      //for google login
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10,),
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueGrey,
+                          ),
+                            onPressed: () {
+                              context.read<AuthenticationCubit>().signInWithGoogle();
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  child: Image.network('https://t3.ftcdn.net/jpg/05/18/09/32/360_F_518093233_bYlgthr8ZLyAUQ3WryFSSSn3ruFJLZHM.jpg',
+                                  height: 35.w,
+                                  ),
+                                ),
+                                SizedBox(width: 10.w,),
+                                Text(
+                                  'Continue with google',
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white
+                                  ),
+                                )
+                              ],
+                            )
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10,),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueGrey,
+                            ),
+                            onPressed: () {
+                              context.read<AuthenticationCubit>().signInWithFacebook();
+                            },
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 8),
+                                  child: Image.network('https://i.pinimg.com/736x/f7/8c/a3/f78ca316c03ed09eddefeb2096e76946.jpg',
+                                    height: 35.w,
+                                  ),
+                                ),
+                                SizedBox(width: 10.w,),
+                                Text(
+                                  'Continue',
+                                  style: TextStyle(
+                                      fontSize: 20.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                  ),
+                                )
+                              ],
+                            )
+                        ),
                       ),
                       TextButton(
                         onPressed: () {

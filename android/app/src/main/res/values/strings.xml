@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Saving Trackings</string>
+    <string name="facebook_app_id">2055585318213805</string>
+    <string name="fb_login_protocol_scheme">fb2055585318213805</string>
+    <string name="facebook_client_token">467f22b5e39a26c3c3d472c8c2543fbc</string>
+
+</resources>

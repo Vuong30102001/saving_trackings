@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:saving_trackings_flutter/core/app_router.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_facebook_use_case.dart';
+import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_google_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_cateogry_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_transaction_use_case.dart';
@@ -43,8 +45,20 @@ class MyApp extends StatelessWidget {
               Provider<SignUpUseCase>(
                 create: (_) => di.sl<SignUpUseCase>(), // Lấy từ Service Locator
               ),
+              Provider<SignInWithGoogleUseCase>(
+                  create: (_) => di.sl<SignInWithGoogleUseCase>(),
+              ),
+              Provider<SignInWithFacebookUseCase>(
+                  create: (_) => di.sl<SignInWithFacebookUseCase>()
+              ),
               Provider<AuthenticationCubit>(
-                create: (context) => AuthenticationCubit(signIn: context.read<SignInUseCase>(), signUp: context.read<SignUpUseCase>()),
+                create: (context) => AuthenticationCubit(
+                    signIn: context.read<SignInUseCase>(),
+                    signUp: context.read<SignUpUseCase>(),
+                    signInWithGoogleUseCase: context.read<SignInWithGoogleUseCase>(),
+                    signInWithFacebookUseCase: context.read<SignInWithFacebookUseCase>(),
+
+                ),
               ),
 
 

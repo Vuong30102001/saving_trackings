@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/entities/transaction_category_entity.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/entities/transaction_entity.dart';
 import 'package:saving_trackings_flutter/feature/wallet/presentation/cubit/cubit/wallet_cubit.dart';
@@ -25,7 +27,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
     'Ăn uống',
     'Mua sắm',
     'Giải trí',
-    'Khác',
+    'Du lịch',
+  ];
+  final List<IconData> _categoryIcons = [
+    Icons.fastfood, // Đồ ăn
+    Icons.shopping_cart, // Mua sắm
+    Icons.movie, // Giải trí
+    Icons.directions_car, // Du lịch
   ];
 
   void _saveTransaction() {
@@ -81,11 +89,32 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Transaction'),
+        title: Text(
+          'Add Transaction',
+          style: GoogleFonts.lato(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+            color: Colors.white,
+          ),
+        ),
         centerTitle: true,
-        backgroundColor: Colors.blue.shade400,
-        elevation: 4,
+        backgroundColor: Colors.blue.shade600,
+        elevation: 2, // Giảm đổ bóng để trông tinh tế hơn
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => context.go('/walletScreen'),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.check, color: Colors.white),
+            onPressed: () {
+              // TODO: Xử lý lưu giao dịch
+              _saveTransaction();
+            },
+          ),
+        ],
       ),
+
       body: BlocConsumer<WalletCubit, WalletState>(
         builder: (context, state){
           if(state is WalletLoading){
@@ -206,13 +235,13 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                   ),
                   SizedBox(height: 20.w,),
                   SizedBox(
-                    height: 150.w,
+                    height: 180.w,
                     child: GridView.builder(
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 20,
-                          childAspectRatio: 5,
+                          crossAxisSpacing: 12,
+                          mainAxisSpacing: 16,
+                          childAspectRatio: 3.5,
                         ),
                         itemCount: _categories.length,
                         itemBuilder: (context, index){
@@ -226,14 +255,34 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                             child: Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(12),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.shade300,
+                                    blurRadius: 8,
+                                    spreadRadius: 2,
+                                    offset: Offset(2, 4)
+                                  )
+                                ]
                               ),
-                              child: Text(
-                                _categories[index],
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    _categoryIcons[index % _categoryIcons.length],
+                                    color: Colors.blueAccent,
+                                    size: 24,
+                                  ),
+                                  SizedBox(width: 8),
+                                  Text(
+                                    _categories[index],
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.black87,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           );

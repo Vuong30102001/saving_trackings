@@ -15,4 +15,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository{
   Future<UserEntity> signUpWithEmailPassword(String email, String password){
     return firebaseAuthDataSource.signUpWithEmailPassword(email, password);
   }
+
+  @override
+  Future<UserEntity> signInWithGoogle(){
+    return firebaseAuthDataSource.signInWithGoogle();
+  }
+  @override
+  Future<UserEntity> signInWithFacebook(){
+    return firebaseAuthDataSource.signInWithFacebook();
+  }
 }
