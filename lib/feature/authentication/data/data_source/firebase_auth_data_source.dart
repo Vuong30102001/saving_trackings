@@ -19,6 +19,7 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource{
   @override
   Future<UserEntity> signInWithEmailPassword(String email, String password) async {
     try{
+      // Kiểm tra sinh trắc học trước khi đăng nhập
       final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
           email: email,
           password: password
@@ -68,7 +69,7 @@ class FirebaseAuthDataSourceImpl implements FirebaseAuthDataSource{
         throw Exception('Google Sign-In failed');
       }
 
-      return UserModel.fromFirebaseUser(user); // ✅ Trả về UserEntity
+      return UserModel.fromFirebaseUser(user); // Trả về UserEntity
     } on FirebaseAuthException catch (e) {
       throw Exception(e.message ?? 'Google Sign-In error');
     }

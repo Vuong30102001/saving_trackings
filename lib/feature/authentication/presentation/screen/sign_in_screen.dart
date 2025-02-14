@@ -9,7 +9,7 @@ import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/cubit/authentication_cubit.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/state/authentication_state.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/wallet_screen.dart';
+import 'package:saving_trackings_flutter/service/biometric_auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -30,6 +30,8 @@ class _SignInScreenState extends State<SignInScreen> {
 
   bool rememberMe = false; //kiểm tra checkbox có được chọn không
 
+  final BiometricAuthService biometricAuthService = BiometricAuthService();
+
   @override
   void initState(){
     super.initState();
@@ -38,16 +40,16 @@ class _SignInScreenState extends State<SignInScreen> {
 
   //Đọc email & pasword đọc từ Secure Storage
   Future<void> _loadSavedCredentials() async {
-    String? savedEmail = await secureStorage.read(key: "email");
-    String? savedPassword = await secureStorage.read(key: "password");
+      String? savedEmail = await secureStorage.read(key: "email");
+      String? savedPassword = await secureStorage.read(key: "password");
 
-    if(savedEmail != null && savedPassword != null){
-      setState(() {
-        emailController.text = savedEmail;
-        passwordController.text = savedPassword;
-        rememberMe = true;
-      });
-    }
+      if(savedEmail != null && savedPassword != null){
+        setState(() {
+          emailController.text = savedEmail;
+          passwordController.text = savedPassword;
+          rememberMe = true;
+        });
+      }
   }
 
   //Lưu email & password vào secure storage
@@ -213,36 +215,36 @@ class _SignInScreenState extends State<SignInScreen> {
                             )
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10,),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueGrey,
-                            ),
-                            onPressed: () {
-                              context.read<AuthenticationCubit>().signInWithFacebook();
-                            },
-                            child: Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 8),
-                                  child: Image.network('https://i.pinimg.com/736x/f7/8c/a3/f78ca316c03ed09eddefeb2096e76946.jpg',
-                                    height: 35.w,
-                                  ),
-                                ),
-                                SizedBox(width: 10.w,),
-                                Text(
-                                  'Continue',
-                                  style: TextStyle(
-                                      fontSize: 20.sp,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white
-                                  ),
-                                )
-                              ],
-                            )
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10,),
+                      //   child: ElevatedButton(
+                      //       style: ElevatedButton.styleFrom(
+                      //         backgroundColor: Colors.blueGrey,
+                      //       ),
+                      //       onPressed: () {
+                      //         context.read<AuthenticationCubit>().signInWithFacebook();
+                      //       },
+                      //       child: Row(
+                      //         children: [
+                      //           Padding(
+                      //             padding: const EdgeInsets.symmetric(vertical: 8),
+                      //             child: Image.network('https://i.pinimg.com/736x/f7/8c/a3/f78ca316c03ed09eddefeb2096e76946.jpg',
+                      //               height: 35.w,
+                      //             ),
+                      //           ),
+                      //           SizedBox(width: 10.w,),
+                      //           Text(
+                      //             'Continue',
+                      //             style: TextStyle(
+                      //                 fontSize: 20.sp,
+                      //                 fontWeight: FontWeight.bold,
+                      //                 color: Colors.white
+                      //             ),
+                      //           )
+                      //         ],
+                      //       )
+                      //   ),
+                      // ),
                       TextButton(
                         onPressed: () {
                           final email = emailController.text;

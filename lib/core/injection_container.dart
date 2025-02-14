@@ -17,6 +17,7 @@ import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_tran
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_balance_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_categories_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_transaction_use_case.dart';
+import 'package:saving_trackings_flutter/service/biometric_auth_service.dart';
 
 import '../feature/wallet/data/data source/transaction_data_source.dart';
 import '../feature/wallet/data/isar_service.dart';
@@ -31,9 +32,12 @@ Future<void> init() async {
   //Firebase
   sl.registerLazySingleton<FirebaseAuth>(() => FirebaseAuth.instance);
 
+  //
+  sl.registerLazySingleton<BiometricAuthService>(() => BiometricAuthService());
+
   //Data source
   sl.registerLazySingleton<FirebaseAuthDataSource>(
-      () => FirebaseAuthDataSourceImpl(sl())
+      () => FirebaseAuthDataSourceImpl(sl<FirebaseAuth>())
   );
 
   //Repository

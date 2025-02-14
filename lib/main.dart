@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:saving_trackings_flutter/core/app_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_facebook_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_google_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_up_use_case.dart';
+import 'package:saving_trackings_flutter/feature/authentication/presentation/screen/sign_in_screen.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_cateogry_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/add_transaction_use_case.dart';
 import 'package:saving_trackings_flutter/feature/wallet/domain/use_case/get_balance_use_case.dart';
@@ -85,7 +87,19 @@ class MyApp extends StatelessWidget {
                     addCategoryUseCase: context.read<AddCategoryUseCase>(),
                     getCategoriesUseCase: context.read<GetCategoriesUseCase>()
                 ),
-                child: WalletScreen(),
+                child: StreamBuilder<User?>(
+                  stream: FirebaseAuth.instance.authStateChanges(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    if (snapshot.hasData) {
+                      return WalletScreen();
+                    } else {
+                      return SignInScreen();
+                    }
+                  },
+                ),
               )
             ],
             child: MaterialApp.router(

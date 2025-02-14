@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_facebook_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_google_use_case.dart';
@@ -12,6 +13,7 @@ class AuthenticationCubit extends Cubit<AuthenticationState> {
   final SignUpUseCase signUp;
   final SignInWithGoogleUseCase signInWithGoogleUseCase;
   final SignInWithFacebookUseCase signInWithFacebookUseCase;
+  final FlutterSecureStorage secureStorage = FlutterSecureStorage();
 
   AuthenticationCubit({
     required this.signIn,

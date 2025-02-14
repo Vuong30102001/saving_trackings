@@ -7,7 +7,7 @@ import 'package:saving_trackings_flutter/feature/wallet/presentation/screen/wall
 import '../home_screen.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/signIn',
+  initialLocation: '/home',
   routes: [
     GoRoute(
       path: '/signIn',
