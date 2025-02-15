@@ -9,7 +9,6 @@ import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/cubit/authentication_cubit.dart';
 import 'package:saving_trackings_flutter/feature/authentication/presentation/cubit/state/authentication_state.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:saving_trackings_flutter/service/biometric_auth_service.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -29,8 +28,6 @@ class _SignInScreenState extends State<SignInScreen> {
   );
 
   bool rememberMe = false; //kiểm tra checkbox có được chọn không
-
-  final BiometricAuthService biometricAuthService = BiometricAuthService();
 
   @override
   void initState(){

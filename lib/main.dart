@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
+import 'package:saving_trackings_flutter/auth_screen.dart';
 import 'package:saving_trackings_flutter/core/app_router.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_facebook_use_case.dart';
 import 'package:saving_trackings_flutter/feature/authentication/domain/use_case/sign_in_with_google_use_case.dart';
@@ -94,7 +95,7 @@ class MyApp extends StatelessWidget {
                       return const Center(child: CircularProgressIndicator());
                     }
                     if (snapshot.hasData) {
-                      return WalletScreen();
+                      return AuthScreen();
                     } else {
                       return SignInScreen();
                     }
